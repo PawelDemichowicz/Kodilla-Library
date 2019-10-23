@@ -1,0 +1,34 @@
+package com.crud.library.domain;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "BOOK")
+@Getter
+@Setter
+public class Book {
+
+    public Book(Title title, String status) {
+        this.title = title;
+        this.status = status;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
+    @Column(name = "ID", unique = true)
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "TITLE_ID")
+    private Title title;
+
+    @Column(name = "STATUS")
+    private String status;
+}
