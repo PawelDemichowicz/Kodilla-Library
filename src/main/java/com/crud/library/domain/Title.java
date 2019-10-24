@@ -1,5 +1,7 @@
 package com.crud.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "TITLE")
@@ -37,11 +40,11 @@ public class Title {
     @Column(name = "YEAR_PUBLISHED")
     private int yearPublished;
 
+    @JsonIgnore
     @OneToMany(
             targetEntity = Book.class,
             mappedBy = "title",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     private List<Book> books = new ArrayList<>();
 }

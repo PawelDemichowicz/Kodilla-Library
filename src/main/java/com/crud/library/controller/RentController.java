@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1")
 public class RentController {
@@ -19,12 +21,12 @@ public class RentController {
     @Autowired
     RentMapper mapper;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/rents")
+    @RequestMapping(method = RequestMethod.POST, value = "/rents", consumes = APPLICATION_JSON_VALUE)
     public void rentBook(@RequestParam Long bookId, @RequestParam Long readerId){
         service.rentBook(bookId,readerId);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/rents")
+    @RequestMapping(method = RequestMethod.PUT,value = "/rents")
     public RentDto returnBook(@RequestParam Long bookId, @RequestParam Long readerId){
         return mapper.mapToRentDto(service.returnBook(bookId,readerId));
     }

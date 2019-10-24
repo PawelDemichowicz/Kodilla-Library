@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1")
 public class ReaderController {
@@ -19,7 +21,7 @@ public class ReaderController {
     @Autowired
     ReaderMapper mapper;
 
-    @RequestMapping(method = RequestMethod.POST,value = "/readers")
+    @RequestMapping(method = RequestMethod.POST,value = "/readers", consumes = APPLICATION_JSON_VALUE)
     public void createReader(@RequestBody ReaderDto readerDto){
         service.saveReader(mapper.mapToReader(readerDto));
     }

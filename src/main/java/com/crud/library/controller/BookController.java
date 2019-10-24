@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1")
 public class BookController {
@@ -28,7 +30,7 @@ public class BookController {
         return mapper.mapToBookDto(service.getBook(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/books")
+    @RequestMapping(method = RequestMethod.POST,value = "/books", consumes = APPLICATION_JSON_VALUE)
     public void createBook(@RequestBody BookDto bookDto){
         service.saveBook(mapper.mapToBook(bookDto));
     }
@@ -38,8 +40,8 @@ public class BookController {
         return mapper.mapToBookDto(service.updateBookStatus(id,status));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/boards")
-    public int countBooks(@RequestBody String title){
+    @RequestMapping(method = RequestMethod.GET, value = "/books/count")
+    public int countBooks(@RequestParam String title){
         return service.countBookAvailableToRent(title);
     }
 
